@@ -1,18 +1,32 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article');
+  Article = mongoose.model('Article'),
+// Require giphy with the public beta key
+  giphy = require('giphy-api')();
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
 router.get('/', function (req, res, next) {
-  Article.find(function (err, articles) {
-    if (err) return next(err);
+
+  // Search with options using promise
+  giphy.search({
+    q: 'music',
+    limit: 1,
+    offset: Math.floor(Math.random() * (1000)) //Math.random() * (max - min) + min;
+  }).then(function (giphyRes) {
+    // Res contains gif data!
+    //console.log(giphyRes);
     res.render('index', {
       title: 'Smoothtraxx API',
-      articles: articles
+      img_src: giphyRes.data[0].images.downsized.url
     });
+
   });
+
 });
+
+
+

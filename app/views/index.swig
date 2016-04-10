@@ -1,6 +1,5 @@
 {% extends 'layout.swig' %}
 
 {% block content %}
-  <h1>{{ title }}</h1>
-  <p>Welcome to {{ title }}</p>
+  <img src="{{ img_src }}">
 {% endblock %}
