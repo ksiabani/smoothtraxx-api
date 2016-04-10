@@ -44,7 +44,16 @@ module.exports = function(app, config) {
   app.use(methodOverride());
 
   // required for passport
-  app.use(session({ secret: process.env.SESSION_SECRET })); // session secret
+  app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: process.env.SESSION_SECRET
+    //TODO: Store session on mongodb
+    //store: new mongoStore({
+    //  db: db.connection.db,
+    //  collection: config.sessionCollection
+    //})
+  })); // session secret
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
   app.use(flash()); // use connect-flash for flash messages stored in session
