@@ -6,6 +6,9 @@ var express = require('express'),
 //load environment variables from .env
 require('dotenv').config();
 
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || config.port;
+
 //mLab recommended mongoose connection options https://gist.github.com/mongolab-org/9959376
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
   replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
@@ -29,7 +32,7 @@ conn.once('open', function() {
 
   require('./config/express')(app, config);
 
-  app.listen(config.port, function () {
+  app.listen(port, function () {
     console.log('Express server listening on port ' + config.port);
   });
 
