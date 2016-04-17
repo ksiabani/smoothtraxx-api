@@ -11,6 +11,7 @@ var swig = require('swig');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var session      = require('express-session');
+var cors = require('cors');
 
 module.exports = function(app, config) {
 
@@ -57,6 +58,9 @@ module.exports = function(app, config) {
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
   app.use(flash()); // use connect-flash for flash messages stored in session
+
+  // Enable CORS
+  app.use(cors());
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {
