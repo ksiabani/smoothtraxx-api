@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
   controller = baucis.rest(mongoose.model('Track'));
 
 module.exports = function (app) {
-  app.use('/api', isLoggedIn, baucis());
+  // app.use('/api', isLoggedIn, baucis());
+  app.use('/api', baucis());
 };
 
 
